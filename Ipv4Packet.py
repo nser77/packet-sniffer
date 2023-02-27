@@ -1,4 +1,4 @@
-class LayerIpv4(object):
+class Ipv4Packet(object):
   _format_string_="! 2x H H 2x B B H 4s 4s"
 
   def __init__(self, raw):
