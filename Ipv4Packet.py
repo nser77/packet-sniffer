@@ -1,3 +1,6 @@
+import struct
+import binascii
+
 class Ipv4Packet(object):
   _format_string_="! 2x H H 2x B B H 4s 4s"
 
