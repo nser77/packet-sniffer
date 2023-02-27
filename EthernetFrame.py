@@ -3,16 +3,17 @@ import binascii
 
 class EthernetFrame(object):
     _format_string_="! 6s 6s H"
+    size=None
 
     def __init__(self, raw=None):
         try:
-            size=struct.calcsize(self._format_string_)
-            dst_mac, src_mac, ether_type = struct.unpack(self._format_string_, raw[:size])
+            self.size=struct.calcsize(self._format_string_)
+            dst_mac, src_mac, ether_type = struct.unpack(self._format_string_, raw[:self.size])
         except:
             # 802.1Q (VLAN) exception tag
             self._format_string_="! 6s 6s i H"
-            size=struct.calcsize(self._format_string_)
-            dst_mac, src_mac, dot1q, ether_type = struct.unpack(self._format_string_, raw[:size])
+            self.size=struct.calcsize(self._format_string_)
+            dst_mac, src_mac, dot1q, ether_type = struct.unpack(self._format_string_, raw[:self.size])
             self.dot1q=dot1q
 
         self.dst_mac=binascii.hexlify(dst_mac)
