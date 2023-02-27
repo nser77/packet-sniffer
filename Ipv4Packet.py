@@ -4,11 +4,9 @@ class Ipv4Packet(object):
   def __init__(self, raw):
     """
       # 2s -> KO (version + ihl + tos)
-        [actual 2x to skip fields]
       # H  -> OK (total length)
       # H  -> OK (identification)
       # 2s -> KO (flags + fragment offset)
-         [actual 2x to skip fields]
       # B  -> OK (ttl)
       # B  -> OK (proto)
       # H  -> OK (header checksum)
