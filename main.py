@@ -1,9 +1,10 @@
 import socket
-import struct
-import binascii
 
 class Sniffer:
-    def sliceEtherFrame(self, raw):
+    def sliceEthernetFrame(self, raw):
+       """
+       Ethernet frame header is 14 bytes without 802.1Q.
+       """
         ether_frame = EthernetFrame(raw[0:14])
         next = raw[14:]
 
@@ -39,7 +40,7 @@ class Sniffer:
 
             layers = []
 
-            ether_frame, raw_ip_packet = self.sliceEtherFrame(raw)
+            ether_frame, raw_ip_packet = self.sliceEthernetFrame(raw)
             layers.append(ether_frame)
 
             if ether_frame.ether_type == 'ipv4':
