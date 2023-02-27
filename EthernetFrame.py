@@ -1,3 +1,6 @@
+import struct
+import binascii
+
 class EthernetFrame(object):
     _format_string_="! 6s 6s H"
 
