@@ -3,7 +3,8 @@ import socket
 class Sniffer:
     def sliceEthernetFrame(self, raw):
        """
-       Ethernet frame header is 14 bytes without 802.1Q.
+       14 bytes without 802.1Q.
+       18 bytes with 802.1Q.
        """
         ether_frame = EthernetFrame(raw[0:14])
         next = raw[14:]
@@ -11,6 +12,9 @@ class Sniffer:
         return ether_frame, next
 
     def sliceIpv4Packet(self, raw):
+       """
+       Dynamic header length.
+       """
         version_header_len = raw[0]
         version = version_header_len >> 4
         header_len = (version_header_len & 15) * 4
