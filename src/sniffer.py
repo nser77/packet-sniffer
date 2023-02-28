@@ -14,14 +14,21 @@ class Sniffer:
         while True:
             raw, addr = conn.recvfrom(65536)
 
-            bitstream=BitStream(raw)
-            ethernet_frame = EthernetFrame(bitstream)
-            ipv4_packet=Ipv4Packet(bitstream)
-            
+            bitstream = BitStream(raw)
+
             layers=[]
+
+            ethernet_frame = EthernetFrame(bitstream)
+            del bitstream[:ethernet_frame.header_size]
+            del bitstream[-ethernet_frame.footer_size:]
             layers.append(ethernet_frame)
+
+            ipv4_packet = Ipv4Packet(bitstream)
+            del bitstream[:ipv4_packet.header_size]
             layers.append(ipv4_packet)
- 
+
+            #ipv4_packet.switch()
+            
             if ipv4_packet.protocol == 6:
                 ipv4_tcp_packet=Ipv4PacketTcp(bitstream)
                 layers.append(ipv4_tcp_packet)
