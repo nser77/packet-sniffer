@@ -1,40 +1,22 @@
 import socket
+import binascii
+import bitstring
 
 class Sniffer:
-    def sliceEthernetFrame(self, raw):
-       """
-       14 bytes without 802.1Q.
-       18 bytes with 802.1Q.
-       """
-        ether_frame = EthernetFrame(raw[0:14])
-        next = raw[14:]
+    def sliceEthernetFrame(self, bitstream):
+        dst_mac=binascii.hexlify(bitstream[:48].bytes, ':')
+        src_mac=binascii.hexlify(bitstream[48:96].bytes, ":")
+        ether_type=binascii.hexlify(bitstream[96:112].bytes)
+        
+        ethernet_frame = EthernetFrame(dst_mac, src_mac, ether_type)
 
-        return ether_frame, next
+        return ethernet_frame, ether_type
 
     def sliceIpv4Packet(self, raw):
-       """
-       Dynamic header length.
-       """
-        version_header_len = raw[0]
-        version = version_header_len >> 4
-        header_len = (version_header_len & 15) * 4
-        
         ipv4_packet = Ipv4Packet(raw)
-        next = raw[header_len:]
+        next = raw[ipv4_packet.size:]
 
         return ipv4_packet, next
-
-    def sliceIpv4IcmpPacket(self, raw):
-        ipv4_icmp_packet = Ipv4IcmpPacket(raw[:4])
-        next = raw[4:]
-
-        return ipv4_icmp_packet, next
-
-    def sliceIpv4TcpPacket(self, raw):
-        ipv4_tcp_packet = Ipv4TcpPacket(raw)
-        next = raw[24:]
-
-        return ipv4_tcp_packet, next
 
     def start(self):
         conn = socket.socket(socket.PF_PACKET, socket.SOCK_RAW, socket.ntohs(3))
@@ -42,14 +24,19 @@ class Sniffer:
         while True:
             raw, addr = conn.recvfrom(65536)
 
-            layers = []
+            bitstream=bitstring.BitStream(raw)
+            #bitstream.pp('bin, hex', width=100)
+            
+            ethernet_frame, ether_type = self.sliceEthernetFrame(bitstream)
+            
+            ip_version=bitstream[112:116].int
+            ip_ihl=bitstream[116:120].int
 
-            ether_frame, raw_ip_packet = self.sliceEthernetFrame(raw)
-            layers.append(ether_frame)
+            print(dst_mac, src_mac, ether_type, ip_version, ip_ihl)
 
-            if ether_frame.ether_type == 'ipv4':
-                ip_packet, raw_transport_packet = self.sliceIpv4Packet(raw_ip_packet)
-                layers.append(ip_packet)
-                
     def output(self, layers):
         pass
+
+
+sniffer=Sniffer()
+sniffer.start()
