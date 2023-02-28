@@ -1,21 +1,21 @@
 import binascii
 
 class EthernetFrame(object):
-    def __init__(self, dst_mac, src_mac, ether_type):
-        self.setDstMac(dst_mac)
-        self.setSrcMac(src_mac)
-        self.setEtherType(ether_type)
+    def __init__(self, bytes_dst_mac, bytes_src_mac, bytes_ether_type):
+        self.setDstMac(bytes_dst_mac)
+        self.setSrcMac(bytes_src_mac)
+        self.setEtherType(bytes_ether_type)
 
-    def setDstMac(self, byte_dst_mac):
-        self.dst_mac=binascii.hexlify(byte_dst_mac, ":")
+    def setDstMac(self, bytes_dst_mac):
+        self.dst_mac=binascii.hexlify(bytes_dst_mac, ":")
         return True
 
-    def setSrcMac(self, byte_src_mac):
-        self.src_mac=binascii.hexlify(byte_src_mac, ":")
+    def setSrcMac(self, bytes_src_mac):
+        self.src_mac=binascii.hexlify(bytes_src_mac, ":")
         return True
 
-    def setEtherType(self, byte_ether_type):
-        match byte_ether_type.hex():
+    def setEtherType(self, bytes_ether_type):
+        match bytes_ether_type.hex():
             case '0800':
                 ether_type='ipv4'
             case '0806':
