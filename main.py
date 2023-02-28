@@ -1,17 +1,62 @@
 import socket
+import binascii
 import bitstring
 
+class EthernetFrame(object):
+    def __init__(self, bitstream):
+        self.setDstMac(    bitstream[:48])
+        self.setSrcMac(    bitstream[48:96])
+        self.setEtherType( bitstream[96:112])
+        #self.setFcs(      bitstream[:-32])
+
+    def setDstMac(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            self.dst_mac=binascii.hexlify(bitstream.bytes, ":")
+
+    def setSrcMac(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            self.src_mac=binascii.hexlify(bitstream.bytes, ":")
+
+    def setEtherType(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            match bitstream.hex:
+                case '0800':
+                    self.ether_type='ipv4'
+                case '0806':
+                    self.ether_type='arp'
+                case '086dd':
+                    self.ether_type='ipv6'
+
+class Ipv4Packet(object):
+    def __init__(self, bitstream):
+        self.setVersion(        bitstream[112:116])
+        self.setIhl(            bitstream[116:120])
+        self.setTos(            bitstream[120:128])
+        self.setTotalLength(    bitstream[128:144])
+        self.setIdentification( bitstream[144:160])
+
+    def setVersion(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            self.version=bitstream.int
+
+    def setIhl(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            self.ihl=bitstream.int
+
+    def setTos(self, bitstream):
+        # not implemented yet
+        if isinstance(bitstream, bitstring.BitStream):
+            self.tos=bitstream.int
+
+    def setTotalLength(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            self.total_length=bitstream.uint
+
+    def setIdentification(self, bitstream):
+        if isinstance(bitstream, bitstring.BitStream):
+            self.identification=bitstream.uint
+
 class Sniffer:
-    def sliceEthernetFrame(self, bitstream):
-        dst_mac=bitstream[:48].bytes
-        src_mac=bitstream[48:96].bytes
-        ether_type=bitstream[96:112].bytes
-
-        return EthernetFrame(dst_mac, src_mac, ether_type)
-
-    def sliceIpv4Packet(self, raw):
-        pass
-
     def start(self):
         conn = socket.socket(socket.PF_PACKET, socket.SOCK_RAW, socket.ntohs(3))
 
@@ -19,38 +64,20 @@ class Sniffer:
             raw, addr = conn.recvfrom(65536)
 
             bitstream=bitstring.BitStream(raw)
-            #bitstream.pp('bin, hex', width=100)
-            
-            ethernet_frame, ether_type = self.sliceEthernetFrame(bitstream)
-            
-            ip_version=bitstream[112:116].int
-            ip_ihl=bitstream[116:120].int
-            ip_tos=bitstream[120:128].int
-            #ip_dscp=bitstream[123:128].int
-            ip_total_length=bitstream[128:144].uint
-            ip_id=bitstream[144:160].uint
-            ip_flag_0=bitstream[160:161].int
-            ip_flag_1=bitstream[161:162].int
-            ip_flag_2=bitstream[162:163].int
-            ip_fragment_offset=bitstream[163:176].uint
-            ip_ttl=bitstream[176:184].int
-            ip_protocol=bitstream[184:192].int
-            ip_checksum=bitstream[192:208].uint
-            ip_src=bitstream[208:240].bytes
-            ip_dst=bitstream[240:272].bytes
-            h_ip_src=".".join(map(str, ip_src))
-            h_ip_dst=".".join(map(str, ip_dst))
 
-            if ethernet_frame.ether_type == 'ipv4':
-                print(ip_version, ip_ihl, ip_tos, ip_total_length,
-                      ip_id, ip_flag_0, ip_flag_1, ip_flag_2, ip_fragment_offset,
-                      ip_ttl, ip_protocol, ip_checksum,
-                      h_ip_src, h_ip_dst)
-
+            print('-----------------------')
+            print('--- Ethernet frame --- ')
+            ethernet_frame = EthernetFrame(bitstream)
+            print(ethernet_frame.dst_mac, ethernet_frame.src_mac, ethernet_frame.ether_type)
+            print('--- Ip Packet ---')
+            ipv4_packet=Ipv4Packet(bitstream)
+            print(ipv4_packet.version, ipv4_packet.ihl, ipv4_packet.total_length, ipv4_packet.identification)
 
     def output(self, layers):
         pass
 
-
-sniffer=Sniffer()
-sniffer.start()
+try:
+    sniffer=Sniffer()
+    sniffer.start()
+except KeyboardInterrupt:
+    print("\n")
