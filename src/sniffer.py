@@ -22,12 +22,3 @@ class Sniffer:
             layers.append(ipv4_packet)
 
             yield layers
-
-try:
-    sniffer=Sniffer()
-    
-    for packet in sniffer.start():
-        if len(packet) >= 2:
-            print(packet[1].version)
-except KeyboardInterrupt:
-    print("\n"
