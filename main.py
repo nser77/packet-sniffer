@@ -1,16 +1,13 @@
 import socket
-import binascii
 import bitstring
 
 class Sniffer:
     def sliceEthernetFrame(self, bitstream):
-        dst_mac=binascii.hexlify(bitstream[:48].bytes, ':')
-        src_mac=binascii.hexlify(bitstream[48:96].bytes, ":")
-        ether_type=binascii.hexlify(bitstream[96:112].bytes)
-        
-        ethernet_frame = EthernetFrame(dst_mac, src_mac, ether_type)
+        dst_mac=bitstream[:48].bytes
+        src_mac=bitstream[48:96].bytes
+        ether_type=bitstream[96:112].bytes
 
-        return ethernet_frame
+        return EthernetFrame(dst_mac, src_mac, ether_type)
 
     def sliceIpv4Packet(self, raw):
         pass
