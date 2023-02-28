@@ -14,8 +14,7 @@ THIS IS A PACKET-SNIFFER, no a packet-capture software.
 3) Create a interface to directly streaming packets to a message broker (REDIS, Kafka, RabbitMQ) 
 
 ## Output
-
-Parsed layers are returned as objects into an array.
+At core level, parsed layers are returned as objects into an array.
 
 ```
 [<ethernet.frame.EthernetFrame object at 0xffff8ca7ded0>, <internet.ipv4.ipv4_packet.Ipv4Packet object at 0xffff8ca7df30>]
