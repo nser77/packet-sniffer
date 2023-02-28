@@ -7,6 +7,15 @@ class Ipv4Packet(object):
         self.setTos(            bitstream[120:128])
         self.setTotalLength(    bitstream[128:144])
         self.setIdentification( bitstream[144:160])
+        self.setFlag0(          bitstream[160:161])
+        self.setFlag1(          bitstream[161:162])
+        self.setFlag2(          bitstream[162:163])
+        self.setFragmentOffset( bitstream[163:176])
+        self.setTtl(            bitstream[176:184])
+        self.setProtocol(       bitstream[184:192])
+        self.setHeaderChecksum( bitstream[192:208])
+        self.setSrc(            bitstream[208:240])
+        self.setDst(            bitstream[240:272])
 
     def setVersion(self, bitstream):
         if isinstance(bitstream, BitStream):
@@ -28,3 +37,39 @@ class Ipv4Packet(object):
     def setIdentification(self, bitstream):
         if isinstance(bitstream, BitStream):
             self.identification=bitstream.uint
+
+    def setFlag0(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.flag0=bitstream.int
+
+    def setFlag1(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.flag1=bitstream.int
+
+    def setFlag2(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.flag2=bitstream.int
+
+    def setFragmentOffset(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.fragment_offset=bitstream.uint
+
+    def setTtl(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.ttl=bitstream.int
+
+    def setProtocol(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.protocol=bitstream.int
+
+    def setHeaderChecksum(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.header_checksum=bitstream.uint
+
+    def setSrc(self, bitstream):
+        if isinstance(bitstream, BitStream):
+           self.src=".".join(map(str, bitstream.bytes))
+
+    def setDst(self, bitstream):
+        if isinstance(bitstream, BitStream):
+           self.dst=".".join(map(str, bitstream.bytes))
