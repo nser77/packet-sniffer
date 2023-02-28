@@ -5,6 +5,7 @@ from bitstring import BitStream
 
 from ethernet.frame import EthernetFrame
 from internet.ipv4.ipv4_packet import Ipv4Packet
+from internet.ipv4.tcp.tcp_packet import Ipv4PacketTcp
 
 class Sniffer:
     def start(self):
@@ -20,5 +21,9 @@ class Sniffer:
             layers=[]
             layers.append(ethernet_frame)
             layers.append(ipv4_packet)
+ 
+            if ipv4_packet.protocol == 6:
+                ipv4_tcp_packet=Ipv4PacketTcp(bitstream)
+                layers.append(ipv4_tcp_packet)
 
             yield layers
