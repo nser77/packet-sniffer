@@ -1,6 +1,9 @@
 from bitstring import BitStream
 
 class Ipv4Packet(object):
+    with_options=False
+    options_bits=0
+
     def __init__(self, bitstream):
         self.setVersion(        bitstream[112:116])
         self.setIhl(            bitstream[116:120])
@@ -16,6 +19,11 @@ class Ipv4Packet(object):
         self.setHeaderChecksum( bitstream[192:208])
         self.setSrc(            bitstream[208:240])
         self.setDst(            bitstream[240:272])
+
+        if self.ihl > 5 and self.ihl <= 15:
+             self.with_options=True
+             self.options_bits=288
+             self.setOptions(bitstream[272:self.options_bits])
 
     def setVersion(self, bitstream):
         if isinstance(bitstream, BitStream):
@@ -73,3 +81,7 @@ class Ipv4Packet(object):
     def setDst(self, bitstream):
         if isinstance(bitstream, BitStream):
            self.dst=".".join(map(str, bitstream.bytes))
+
+    def setOptions(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            self.options=bitstream.uint
