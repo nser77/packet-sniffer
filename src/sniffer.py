@@ -28,9 +28,5 @@ class Sniffer:
             layers.append(ipv4_packet)
 
             #ipv4_packet.switch()
-            
-            if ipv4_packet.protocol == 6:
-                ipv4_tcp_packet=Ipv4PacketTcp(bitstream)
-                layers.append(ipv4_tcp_packet)
-
+ 
             yield layers
