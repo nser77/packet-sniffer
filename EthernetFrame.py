@@ -1,32 +1,32 @@
-import struct
 import binascii
 
 class EthernetFrame(object):
-    _format_string_="! 6s 6s H"
-    size=None
+    def __init__(self, dst_mac, src_mac, ether_type):
+        self.setDstMac(dst_mac)
+        self.setSrcMac(src_mac)
+        self.setEtherType(ether_type)
 
-    def __init__(self, raw=None):
-        try:
-            self.size=struct.calcsize(self._format_string_)
-            dst_mac, src_mac, ether_type = struct.unpack(self._format_string_, raw[:self.size])
-        except:
-            # 802.1Q (VLAN) exception tag
-            self._format_string_="! 6s 6s i H"
-            self.size=struct.calcsize(self._format_string_)
-            dst_mac, src_mac, dot1q, ether_type = struct.unpack(self._format_string_, raw[:self.size])
-            self.dot1q=dot1q
+    def setDstMac(self, byte_dst_mac):
+        self.dst_mac=binascii.hexlify(byte_dst_mac, ":")
+        return True
 
-        self.dst_mac=binascii.hexlify(dst_mac)
-        self.src_mac=binascii.hexlify(src_mac)
-        self.ether_type=hex(ether_type)
+    def setSrcMac(self, byte_src_mac):
+        self.src_mac=binascii.hexlify(byte_src_mac, ":")
+        return True
 
-    def getEtherType(self, hex_ether_type):
-        match hex_ether_type:
-            case '0x800':
+    def setEtherType(self, byte_ether_type):
+        match byte_ether_type.hex():
+            case '0800':
                 ether_type='ipv4'
-            case '0x806':
+            case '0806':
                 ether_type='arp'
-            case '0x86dd':
+            case '086dd':
                 ether_type='ipv6'
+            case _:
+                ether_type=None
 
-        return ether_type
+        self.ether_type=ether_type
+        return True
+
+    def getEtherType(self):
+        return self.ether_type
