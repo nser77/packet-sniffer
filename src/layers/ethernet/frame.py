@@ -1,6 +1,8 @@
 from binascii import hexlify
 from bitstring import BitStream
 
+from layers.internet.ipv4.ip import Ip
+
 class Frame(object):
     header_size=0
     footer_size=0
@@ -41,4 +43,9 @@ class Frame(object):
        self.footer_size += 32
 
     def switch(self, bitstream):
-        pass
+        if isinstance(bitstream, BitStream):
+            match self.ether_type:
+                case 'ipv4':
+                    return Ip(bitstream)
+                case _:
+                    return False
