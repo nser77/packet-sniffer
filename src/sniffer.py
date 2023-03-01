@@ -3,15 +3,26 @@ from socket import PF_PACKET, SOCK_RAW, ntohs
 
 from bitstring import BitStream
 
+from json import dumps
+
 from layers.ethernet.frame import Frame
 from layers.internet.ipv4.ip import Ip
-from layers.transport.tcp import Tcp
 
 class Sniffer:
-    def start(self):
+    def __init__(self):
+        pass
+
+    def start(self, stop=0):
+        counter = 0
+
         conn = socket(PF_PACKET, SOCK_RAW, ntohs(3))
 
         while True:
+            counter += 1
+
+            if not stop == 0 and counter == stop:
+                break
+
             raw, addr = conn.recvfrom(65536)
 
             bitstream = BitStream(raw)
@@ -24,20 +35,23 @@ class Sniffer:
                 del bitstream[:frame.header_size]
                 del bitstream[-frame.footer_size:]
                 layers.append(frame)
-                
-                if frame.ether_type == 'ipv4':    
-                    ip = Ip(bitstream)
-                    
+
+                if frame.ether_type == 'ipv4':
+                    #ip = Ip(bitstream)
+                    ip = frame.switch(bitstream)
+
                     if ip:
                         del bitstream[:ip.header_size]
                         layers.append(ip)
-                        
+
                         transport = ip.switch(bitstream)
-                        
+
                         if transport:
                             del bitstream[:transport.header_size]
                             layers.append(transport)
 
                             #data=transport.switch(bitstream)
+
+            #print(bitstream.bytes)
 
             yield layers
