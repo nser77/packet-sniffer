@@ -9,7 +9,7 @@ class EthernetFrame(object):
         self.setDstMac(    bitstream[:48])
         self.setSrcMac(    bitstream[48:96])
         self.setEtherType( bitstream[96:112])
-        self.setFcs(      bitstream[:-32])
+        self.setFcs(       bitstream[:-32])
 
     def setDstMac(self, bitstream):
         if isinstance(bitstream, BitStream):
