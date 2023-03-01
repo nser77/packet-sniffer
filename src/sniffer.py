@@ -18,15 +18,26 @@ class Sniffer:
 
             layers=[]
 
-            ethernet_frame = EthernetFrame(bitstream)
-            del bitstream[:ethernet_frame.header_size]
-            del bitstream[-ethernet_frame.footer_size:]
-            layers.append(ethernet_frame)
+            frame = Frame(bitstream)
 
-            ipv4_packet = Ipv4Packet(bitstream)
-            del bitstream[:ipv4_packet.header_size]
-            layers.append(ipv4_packet)
+            if frame:
+                del bitstream[:frame.header_size]
+                del bitstream[-frame.footer_size:]
+                layers.append(frame)
 
-            #ipv4_packet.switch()
- 
+                if frame.ether_type == 'ipv4':
+                    ip = Ip(bitstream)
+
+                    if ip:
+                        del bitstream[:ip.header_size]
+                        layers.append(ip)
+
+                    transport = ip.switch(bitstream)
+
+                    if transport:
+                        del bitstream[:transport.header_size]
+                        layers.append(transport)
+
+                        #data=transport.switch(bitstream)
+
             yield layers
