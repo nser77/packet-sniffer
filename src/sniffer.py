@@ -36,21 +36,19 @@ class Sniffer:
                 del bitstream[-frame.footer_size:]
                 layers.append(frame)
 
-                if frame.ether_type == 'ipv4':
-                    #ip = Ip(bitstream)
-                    ip = frame.switch(bitstream)
+                ip = frame.switch(bitstream)
 
-                    if ip:
-                        del bitstream[:ip.header_size]
-                        layers.append(ip)
+                if ip:
+                    del bitstream[:ip.header_size]
+                    layers.append(ip)
 
-                        transport = ip.switch(bitstream)
+                    transport = ip.switch(bitstream)
 
-                        if transport:
-                            del bitstream[:transport.header_size]
-                            layers.append(transport)
+                    if transport:
+                        del bitstream[:transport.header_size]
+                        layers.append(transport)
 
-                            #data=transport.switch(bitstream)
+                        #data=transport.switch(bitstream)
 
             #print(bitstream.bytes)
 
