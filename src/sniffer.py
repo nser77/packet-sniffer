@@ -3,9 +3,9 @@ from socket import PF_PACKET, SOCK_RAW, ntohs
 
 from bitstring import BitStream
 
-from ethernet.frame import EthernetFrame
-from internet.ipv4.ipv4_packet import Ipv4Packet
-from internet.ipv4.tcp.tcp_packet import Ipv4PacketTcp
+from ethernet.frame import Frame
+from internet.ipv4.ip import Ip
+from transport.tcp import Tcp
 
 class Sniffer:
     def start(self):
