@@ -1,7 +1,7 @@
 from binascii import hexlify
 from bitstring import BitStream
 
-class EthernetFrame(object):
+class Frame(object):
     header_size=0
     footer_size=0
 
