@@ -1,5 +1,7 @@
 from bitstring import BitStream
 
+from layers.transport.tcp import Tcp
+
 class Ip(object):
     header_size=0
     header_options=False
@@ -100,3 +102,8 @@ class Ip(object):
         if isinstance(bitstream, BitStream):
             self.options=bitstream.uint
             self.header_size += self.header_options_size
+
+    def switch(self, bitstream):
+        match self.protocol:
+            case 6:
+                return Tcp(bitstream)
