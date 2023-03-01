@@ -30,6 +30,8 @@ class Frame(object):
                     self.ether_type='arp'
                 case '086dd':
                     self.ether_type='ipv6'
+                case _:
+                    self.ether_type=None
 
             self.header_size += 16
 
