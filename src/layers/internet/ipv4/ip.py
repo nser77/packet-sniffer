@@ -1,6 +1,6 @@
 from bitstring import BitStream
 
-class IpPacket(object):
+class Ip(object):
     header_size=0
     header_options=False
     header_options_size=288
