@@ -1,6 +1,7 @@
 from bitstring import BitStream
 
 from layers.transport.tcp import Tcp
+from layers.internet.ipv4.protocol.vrrp import Vrrp
 
 class Ip(object):
     header_size=0
@@ -40,7 +41,7 @@ class Ip(object):
     def setTos(self, bitstream):
         # not implemented yet
         if isinstance(bitstream, BitStream):
-            self.tos=bitstream.int
+            #self.tos="".join(map(chr, bitstream.bytes))
             self.header_size += 8
 
     def setTotalLength(self, bitstream):
@@ -75,7 +76,7 @@ class Ip(object):
 
     def setTtl(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.ttl=bitstream.int
+            self.ttl=bitstream.uint
             self.header_size += 8
 
     def setProtocol(self, bitstream):
@@ -84,8 +85,9 @@ class Ip(object):
             self.header_size += 8
 
     def setHeaderChecksum(self, bitstream):
+        # not implemented yet
         if isinstance(bitstream, BitStream):
-            self.header_checksum=bitstream.uint
+            #self.header_checksum=bitstream.uint
             self.header_size += 16
 
     def setSrc(self, bitstream):
@@ -107,3 +109,5 @@ class Ip(object):
         match self.protocol:
             case 6:
                 return Tcp(bitstream)
+            case 112:
+                return Vrrp(bitstream)
