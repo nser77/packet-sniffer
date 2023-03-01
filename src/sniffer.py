@@ -1,5 +1,3 @@
-import json
-
 from socket import socket
 from socket import PF_PACKET, SOCK_RAW, ntohs
 
