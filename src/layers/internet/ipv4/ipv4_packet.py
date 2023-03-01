@@ -1,6 +1,6 @@
 from bitstring import BitStream
 
-class Ipv4Packet(object):
+class IpPacket(object):
     header_size=0
     header_options=False
     header_options_size=288
