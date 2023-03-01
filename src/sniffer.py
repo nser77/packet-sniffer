@@ -18,6 +18,9 @@ class Sniffer:
         conn = socket(PF_PACKET, SOCK_RAW, ntohs(3))
 
         while True:
+            # Is the sniffer affected by this break? 
+            sleep(0.001)
+            
             counter += 1
 
             if not stop == 0 and counter == stop:
