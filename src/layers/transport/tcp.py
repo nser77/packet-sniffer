@@ -50,12 +50,12 @@ class Tcp(object):
 
     def setDataOffset(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.data_offset=bitstream.uint
+            self.data_offset=bitstream.int
             self.header_size += 4
 
     def setReserved(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.reserved=bitstream.uint
+            self.reserved=bitstream.int
             self.header_size += 4
 
     def setCwr(self, bitstream):
@@ -105,7 +105,7 @@ class Tcp(object):
 
     def setChecksum(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.checksum=bitstream.uint
+            #self.checksum=bitstream.uint
             self.header_size += 16
 
     def setUrgentPointer(self, bitstream):
