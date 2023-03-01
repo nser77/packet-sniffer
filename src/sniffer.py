@@ -1,11 +1,13 @@
+import json
+
 from socket import socket
 from socket import PF_PACKET, SOCK_RAW, ntohs
 
 from bitstring import BitStream
 
-from ethernet.frame import Frame
-from internet.ipv4.ip import Ip
-from transport.tcp import Tcp
+from layers.ethernet.frame import Frame
+from layers.internet.ipv4.ip import Ip
+from layers.transport.tcp import Tcp
 
 class Sniffer:
     def start(self):
