@@ -13,46 +13,30 @@ class Sniffer:
 
     def start(self, stop=0):
         counter = 0
-
         conn = socket(PF_PACKET, SOCK_RAW, ntohs(3))
-
         while True:
-            sleep(0.001)
-
-            counter += 1
-
             if not stop == 0 and counter == stop:
                 break
-
-            raw, addr = conn.recvfrom(65536)
-
-            bitstream = BitStream(raw)
-
+            sleep(0.001)
             layers=[]
-
+            counter += 1
+            raw, addr = conn.recvfrom(65536)
+            bitstream = BitStream(raw)
             frame = Frame(bitstream)
-
             if frame:
                 if not frame.ether_type == 'ipv4':
                     continue
-
                 del bitstream[:frame.header_size]
                 del bitstream[-frame.footer_size:]
                 layers.append(frame)
-
                 ip = frame.switch(bitstream)
-
                 if ip:
                     if not ip.protocol == 6:
                         continue
-
                     del bitstream[:ip.header_size]
                     layers.append(ip)
-
                     transport = ip.switch(bitstream)
-
                     if transport:
                         del bitstream[:transport.header_size]
                         layers.append(transport)
-
             yield layers
