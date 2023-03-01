@@ -39,3 +39,6 @@ class Frame(object):
 
     def setFcs(self, bitstream):
        self.footer_size += 32
+
+    def switch(self, bitstream):
+        pass
