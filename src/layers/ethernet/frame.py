@@ -13,12 +13,14 @@ class Frame(object):
 
     def setDstMac(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.dst_mac=hexlify(bitstream.bytes, ":")
+            dst_mac=hexlify(bitstream.bytes, ":")
+            self.dst_mac=dst_mac.decode('utf-8')
             self.header_size += 48
 
     def setSrcMac(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.src_mac=hexlify(bitstream.bytes, ":")
+            src_mac=hexlify(bitstream.bytes, ":")
+            self.src_mac=src_mac.decode('utf-8')
             self.header_size += 48
 
     def setEtherType(self, bitstream):
