@@ -11,7 +11,7 @@ Supported protocols for layer:
 - Transport: [TCP](src/layers/transport/tcp.py),
 
 ## Project's goals:
-1) Academic purposes
+1) Academic purposes.
 2) Offering a pure Python Linux based packet sniffer
 3) Create a interface to directly streaming packets to a message broker (REDIS, Kafka, RabbitMQ) 
 
