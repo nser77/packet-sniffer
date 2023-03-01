@@ -1,6 +1,6 @@
 from bitstring import BitStream
 
-class Ipv4PacketTcp(object):
+class Tcp(object):
     with_options=False
     options_bits=0
 
