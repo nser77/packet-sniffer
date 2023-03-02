@@ -11,9 +11,10 @@ Supported protocols for layer:
 - Transport: [TCP](src/layers/transport/tcp.py),
 
 ## Project's goals:
-1) Academic purposes.
-2) Offering a pure Python Linux based packet sniffer
-3) Create a interface to directly streaming packets to a message broker (REDIS, Kafka, RabbitMQ) 
+1) Academic purposes
+2) Offering a pure Python packet sniffer
+3) Directly stream packets to message brokers (REDIS, Kafka, RabbitMQ)
+4) High code readability
 
 ## Output
 At core level, each parsed layer is returned as object into an array.
