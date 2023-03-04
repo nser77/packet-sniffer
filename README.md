@@ -1,6 +1,6 @@
 # sniffer
 
-Pure Python packet sniffer for academic purposes.
+Pure Python packet sniffer for academic purposes that streams packets to message brokers.
 
 Supported protocols for layer:
 - Data link: [Ethernet frame](src/layers/ethernet.frame.py)
