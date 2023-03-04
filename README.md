@@ -2,8 +2,6 @@
 
 Pure Python packet sniffer for academic purposes.
 
-Working at bit level then return a Python object for each iso layer.
-
 Supported protocols for layer:
 - Data link: [Ethernet frame](src/layers/ethernet.frame.py)
 - Internet: [IP](src/layers/internet/ipv4/ip.py),
@@ -15,6 +13,20 @@ Supported protocols for layer:
 2) Offering a pure Python packet sniffer
 3) Directly stream packets to message brokers (REDIS, Kafka, RabbitMQ)
 4) High code readability
+
+## Usage
+
+```
+from sniffer import Sniffer
+
+try:
+    sniffer=Sniffer()
+    for packet in sniffer.start():
+        if packet:
+            Output.redis("vrrp", DataModel.json(packet))
+except KeyboardInterrupt:
+    print("\n")
+```
 
 ## Output
 At core level, each parsed layer is returned as object into an array.
