@@ -2,6 +2,11 @@ class Output:
     @staticmethod
     def cli(object):
         print(object, "\n")
+ 
+    @staticmethod
+    def pp(object):
+        # pretty print
+        print(object, "\n")
 
     @staticmethod
     def redis(key, object):
