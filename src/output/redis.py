@@ -1,2 +1,0 @@
-class RedisOutput(JsonDataModel):
-  pass
