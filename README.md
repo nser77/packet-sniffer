@@ -1,4 +1,4 @@
-# sniffer
+# packet-sniffer
 
 Pure Python packet sniffer for academic purposes that streams packets to message brokers.
 
