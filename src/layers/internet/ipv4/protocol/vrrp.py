@@ -15,17 +15,17 @@ class Vrrp(object):
 
     def setVersion(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.version=bitstream.int
+            self.version=bitstream.uint
             self.header_size += 4
 
     def setType(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.type=bitstream.int
+            self.type=bitstream.uint
             self.header_size += 4
 
     def setVirtualRouterId(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.virtual_router_id=bitstream.int
+            self.virtual_router_id=bitstream.uint
             self.header_size += 8
 
     def setPriority(self, bitstream):
@@ -40,7 +40,7 @@ class Vrrp(object):
 
     def setReserved(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.reserved=bitstream.int
+            self.reserved=bitstream.uint
             self.header_size += 4
 
     def setMaxAdvertisementInterval(self, bitstream):
