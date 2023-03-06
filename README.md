@@ -8,9 +8,6 @@ Supported protocols for layer:
     - Internet procols: [VRRP](src/layers/internet/ipv4/protocol/vrrp.py),
 - Transport: [TCP](src/layers/transport/tcp.py),
 
-# TO-DO
-- Using ```ctypes``` library to convert sliced bit data from ```bitstring```.  
-
 ## Project's goals:
 1) Academic purposes
 2) Offering a pure Python packet sniffer
