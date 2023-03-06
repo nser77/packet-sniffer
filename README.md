@@ -14,8 +14,9 @@ Supported protocols for layer:
 ## Project's goals:
 1) Academic purposes
 2) Offering a pure Python packet sniffer
-3) Directly stream packets to message brokers (REDIS, Kafka, RabbitMQ)
-4) High code readability
+3) Object oriented sniffer
+4) Directly stream packets to message brokers (REDIS, Kafka, RabbitMQ)
+5) High code readability
 
 ## Usage
 
