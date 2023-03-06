@@ -57,3 +57,7 @@ class Vrrp(object):
             if not skip:
                 self.checksum=bitstream.uint
             self.header_size += 16
+
+    def switch(self, bitstream):
+        self.data=".".join(map(str, bitstream.bytes))
+        return None
