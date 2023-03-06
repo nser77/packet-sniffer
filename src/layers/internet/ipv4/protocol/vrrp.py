@@ -1,3 +1,7 @@
+"""
+    https://www.rfc-editor.org/rfc/rfc5798#section-5.1
+"""
+
 from bitstring import BitStream
 
 class Vrrp(object):
