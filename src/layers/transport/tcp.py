@@ -50,7 +50,7 @@ class Tcp(object):
 
     def setDataOffset(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.data_offset=bitstream.int
+            self.data_offset=bitstream.uint
             self.header_size += 4
 
     def setReserved(self, bitstream):
@@ -60,42 +60,42 @@ class Tcp(object):
 
     def setCwr(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.cwr=bitstream.int
+            self.cwr=bitstream.uint
             self.header_size += 1
 
     def setEce(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.ece=bitstream.int
+            self.ece=bitstream.uint
             self.header_size += 1
 
     def setUrg(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.urg=bitstream.int
+            self.urg=bitstream.uint
             self.header_size += 1
 
     def setAck(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.ack=bitstream.int
+            self.ack=bitstream.uint
             self.header_size += 1
 
     def setPsh(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.psh=bitstream.int
+            self.psh=bitstream.uint
             self.header_size += 1
 
     def setRst(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.rst=bitstream.int
+            self.rst=bitstream.uint
             self.header_size += 1
 
     def setSyn(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.syn=bitstream.int
+            self.syn=bitstream.uint
             self.header_size += 1
 
     def setFin(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.fin=bitstream.int
+            self.fin=bitstream.uint
             self.header_size += 1
 
     def setWindowSize(self, bitstream):
@@ -105,7 +105,7 @@ class Tcp(object):
 
     def setChecksum(self, bitstream):
         if isinstance(bitstream, BitStream):
-            #self.checksum=bitstream.uint
+            self.checksum=bitstream.hex
             self.header_size += 16
 
     def setUrgentPointer(self, bitstream):
