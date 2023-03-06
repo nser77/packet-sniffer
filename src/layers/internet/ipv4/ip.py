@@ -60,7 +60,6 @@ class Ip(object):
             self.header_size += 1
 
     def setFlag1(self, bitstream):
-        print(bitstream.bin)
         if isinstance(bitstream, BitStream):
             self.flag1=bitstream.uint
             self.header_size += 1
