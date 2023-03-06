@@ -30,18 +30,18 @@ class Ip(object):
 
     def setVersion(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.version=bitstream.int
+            self.version=bitstream.uint
             self.header_size += 4
 
     def setIhl(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.ihl=bitstream.int
+            self.ihl=bitstream.uint
             self.header_size += 4
 
     def setTos(self, bitstream):
         # not implemented yet
         if isinstance(bitstream, BitStream):
-            #self.tos="".join(map(chr, bitstream.bytes))
+            self.tos=bitstream.hex
             self.header_size += 8
 
     def setTotalLength(self, bitstream):
@@ -56,17 +56,18 @@ class Ip(object):
 
     def setFlag0(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.flag0=bitstream.int
+            self.flag0=bitstream.uint
             self.header_size += 1
 
     def setFlag1(self, bitstream):
+        print(bitstream.bin)
         if isinstance(bitstream, BitStream):
-            self.flag1=bitstream.int
+            self.flag1=bitstream.uint
             self.header_size += 1
 
     def setFlag2(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.flag2=bitstream.int
+            self.flag2=bitstream.uint
             self.header_size += 1
 
     def setFragmentOffset(self, bitstream):
@@ -81,13 +82,12 @@ class Ip(object):
 
     def setProtocol(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.protocol=bitstream.int
+            self.protocol=bitstream.uint
             self.header_size += 8
 
     def setHeaderChecksum(self, bitstream):
-        # not implemented yet
         if isinstance(bitstream, BitStream):
-            #self.header_checksum=bitstream.uint
+            self.header_checksum=bitstream.hex
             self.header_size += 16
 
     def setSrc(self, bitstream):
