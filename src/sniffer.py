@@ -27,7 +27,7 @@ class Sniffer:
                 if not frame.ether_type == 'ipv4':
                     continue
                 del bitstream[:frame.header_size]
-                del bitstream[-frame.footer_size:]
+                #del bitstream[-frame.footer_size:]
                 layers.append(frame)
                 ip = frame.switch(bitstream)
                 if ip:
