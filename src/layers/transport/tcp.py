@@ -122,5 +122,5 @@ class Tcp(object):
             self.options=bitstream.uint
             self.header_size += self.header_options_size
 
-    def switch(self, bitstream):
+    def next(self, bitstream):
         pass
