@@ -25,7 +25,7 @@ IPv4 | Stable | yes | [ip.py](src/layers/internet/ipv4/ip.py)
 #### IPv4 protocols
 Name | Number | Version | Stable | Data | File
 --- | --- | --- | --- | --- | ---
-ICMP | 1 | ipv4 | Not released | No |
+ICMP | 1 | ipv4 | Stable | No | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py)
 VRRP | 112 | ipv4 | Stable | yes | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py)
 
 #### IPv4 transport protocols
