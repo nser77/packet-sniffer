@@ -1,3 +1,5 @@
+from redis import Redis
+
 class Output:
     @staticmethod
     def cli(object):
