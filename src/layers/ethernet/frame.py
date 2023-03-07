@@ -42,7 +42,7 @@ class Frame(object):
     def setFcs(self, bitstream):
        self.footer_size += 32
 
-    def switch(self, bitstream):
+    def next(self, bitstream):
         if isinstance(bitstream, BitStream):
             match self.ether_type:
                 case 'ipv4':
