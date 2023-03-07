@@ -15,7 +15,7 @@ class Vrrp(object):
         self.setCountIpvxAddr(                   bitstream[24:32])
         self.setReserved(                        bitstream[32:36])
         self.setMaxAdvertisementInterval(        bitstream[36:48])
-        self.setChecksum(                        bitstream[48:64], True)
+        self.setChecksum(                        bitstream[48:64])
 
     def setVersion(self, bitstream):
         if isinstance(bitstream, BitStream):
@@ -52,10 +52,9 @@ class Vrrp(object):
             self.max_advertisement_interval_c=bitstream.uint
             self.header_size += 12
 
-    def setChecksum(self, bitstream, skip=False):
+    def setChecksum(self, bitstream):
         if isinstance(bitstream, BitStream):
-            if not skip:
-                self.checksum=bitstream.uint
+            self.checksum=bitstream.uint
             self.header_size += 16
 
     def switch(self, bitstream):
