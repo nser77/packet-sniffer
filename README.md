@@ -9,7 +9,7 @@ Pure Python packet sniffer for academic purposes that streams packets to message
 4) Directly stream packets to message brokers (REDIS, Kafka, RabbitMQ)
 5) High code readability
 
-## Supported protocols for layer:
+## Supported protocols for layer
 Very work in progress project:
 
 ### Data link 
