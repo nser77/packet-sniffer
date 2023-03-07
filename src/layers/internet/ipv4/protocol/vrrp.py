@@ -57,7 +57,7 @@ class Vrrp(object):
             self.checksum=bitstream.uint
             self.header_size += 16
 
-    def switch(self, bitstream):
+    def next(self, bitstream):
         self.data = []
         ips=list(bitstream.bytes)
         for i in range(0, len(ips), 4):
