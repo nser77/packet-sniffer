@@ -117,3 +117,6 @@ class Tcp(object):
         if isinstance(bitstream, BitStream):
             self.options=bitstream.uint
             self.header_size += self.header_options_size
+
+    def switch(self, bitstream):
+        pass
