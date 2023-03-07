@@ -58,5 +58,17 @@ class Vrrp(object):
             self.header_size += 16
 
     def switch(self, bitstream):
-        self.data=".".join(map(str, bitstream.bytes))
+        self.data = []
+        ips=list(bitstream.bytes)
+        for i in range(0, len(ips), 4):
+            ip=[]
+            ip.append(ips[i])
+            i += 1
+            ip.append(ips[i])
+            i += 1
+            ip.append(ips[i])
+            i += 1
+            ip.append(ips[i])
+
+            self.data.append(".".join(map(str, ip)))
         return None
