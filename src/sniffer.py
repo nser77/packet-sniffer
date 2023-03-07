@@ -43,7 +43,7 @@ class Sniffer:
                 layer1 = layer0.switch(bitstream)
 
                 if layer1:
-                    if not layer1.protocol == 112:
+                    if not layer1.protocol == 6:
                         continue
 
                     del bitstream[:layer1.header_size]
