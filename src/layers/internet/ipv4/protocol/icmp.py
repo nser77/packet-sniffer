@@ -45,7 +45,7 @@ class IcmpType8Type0(IcmpBase):
             self.header_size += 16
 
 class Icmp(IcmpType5, IcmpType8Type0):
-    def switch(self, bitstream):
+    def next(self, bitstream):
         if self.type == 8 or self.type == 0:
             if self.code == 0:
                 self.setIdentifier(     bitstream[0:16])
