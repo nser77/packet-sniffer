@@ -4,7 +4,7 @@
 
 from bitstring import BitStream
 
-class IcmpBase(object)
+class IcmpBase(object):
     header_size=0
 
     def __init__(self, bitstream):
