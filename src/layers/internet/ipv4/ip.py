@@ -4,9 +4,10 @@
 
 from bitstring import BitStream
 
-from layers.transport.tcp import Tcp
-from layers.internet.ipv4.protocol.vrrp import Vrrp
-from layers.internet.ipv4.protocol.icmp import Icmp
+from layers.internet.ipv4.protocol.icmp import Icmp         # 1
+from layers.internet.ipv4.protocol.vrrp import Vrrp         # 112
+
+from layers.transport.tcp import Tcp                        # 6
 
 class Ip(object):
     header_size=0
