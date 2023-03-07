@@ -13,25 +13,25 @@ Pure Python packet sniffer for academic purposes that streams packets to message
 Very work in progress project:
 
 ### Data link 
-Protocol | Version | Switch | File
+Protocol | Version | Switch | Source
 --- | --- | --- | ---
 Ethernet frame | Stable | yes | [frame.py](src/layers/ethernet.frame.py)
 
 ### Internet
-Protocol | Version | Switch | File
+Protocol | Version | Switch | Source
 --- | --- | --- | ---
 IPv4 | Stable | yes | [ip.py](src/layers/internet/ipv4/ip.py)
 
 #### IPv4 protocols
-Name | Number | Version | Stable | Data | File
---- | --- | --- | --- | --- | ---
-ICMP | 1 | ipv4 | Stable | No | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py)
-VRRP | 112 | ipv4 | Stable | yes | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py)
+Name | Number | Version | Stable | Data | Source | Example
+--- | --- | --- | --- | --- | --- | ---
+ICMP | 1 | ipv4 | Stable | No | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py) | [icmp.json](examples/icmp.json.md)
+VRRP | 112 | ipv4 | Stable | yes | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py) | [vrrp.json](examples/vrrp.json.md)
 
-#### IPv4 transport protocols
-Name | Number | Version | Stable | Data | File
---- | --- | --- | --- | --- | ---
-TCP | 6 | ipv4 | Unstable | No | [tcp.py](src/layers/transport/tcp.py)
+### IPv4 transport protocols
+Name | Number | Version | Stable | Data | Source | Example
+--- | --- | --- | --- | --- | --- | ---
+TCP | 6 | ipv4 | Unstable | No | [tcp.py](src/layers/transport/tcp.py) | [tcp.json](examples/tcp.json.md)
 
 ## Usage
 Prints packet to cli and sending them to REDIS:
