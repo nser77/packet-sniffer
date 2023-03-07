@@ -1,3 +1,7 @@
+"""
+    https://datatracker.ietf.org/doc/html/rfc793
+"""
+
 from bitstring import BitStream
 
 class Tcp(object):
