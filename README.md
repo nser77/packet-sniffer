@@ -1,6 +1,6 @@
 # packet-sniffer
 
-Pure Python packet sniffer for academic purposes that streams packets to message brokers.
+Pure Python object oriented packet sniffer that streams packets to message brokers.
 
 ## Project's goals:
 1) Academic purposes
