@@ -55,7 +55,7 @@ class Vrrp(object):
 
     def setChecksum(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.checksum=bitstream.uint
+            self.checksum=bitstream.bin
             self.header_size += 16
 
     def next(self, bitstream):
