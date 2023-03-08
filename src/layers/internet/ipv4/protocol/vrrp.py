@@ -7,7 +7,6 @@ from bitstring import BitStream
 class Vrrp(object):
     errors = []
     header_size = 0
-    vips = []
 
     def __init__(self, bitstream):
         self.setVersion(                         bitstream[0:4])
