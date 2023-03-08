@@ -92,7 +92,7 @@ class Ip(object):
 
     def setHeaderChecksum(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.header_checksum=bitstream.hex
+            self.header_checksum=bitstream.bin
             self.header_size += 16
 
     def setSrc(self, bitstream):
