@@ -31,7 +31,8 @@ VRRP | 112 | ipv4 | Stable | yes | [vrrp.py](src/layers/internet/ipv4/protocol/v
 ### IPv4 transport protocols
 Name | Number | Version | Stable | Data | Source | Example
 --- | --- | --- | --- | --- | --- | ---
-TCP | 6 | ipv4 | Unstable | No | [tcp.py](src/layers/transport/tcp.py) | [tcp.json](examples/tcp.json.md)
+TCP | 6 | ipv4 | Unstable | Yes | [tcp.py](src/layers/transport/tcp.py) | [tcp.json](examples/tcp.json.md)
+UDP | 17 | ipv4 | Unstable | Yes | [udp.py](src/layers/transport/udp.py) | [udp.json](examples/udp.json.md)
 
 ## Usage
 Prints packet to cli and sending them to REDIS:
