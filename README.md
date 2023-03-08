@@ -3,36 +3,37 @@
 Pure Python object oriented packet sniffer that streams packets to message brokers.
 
 ## Project's goals:
-1) Academic purposes
-2) Offering a pure Python packet sniffer
-3) Object oriented sniffer
-4) Directly stream packets to message brokers (REDIS, Kafka, RabbitMQ)
+1) Academic purposes.
+2) Object oriented sniffer.
+3) Directly stream packets to message brokers ([REDIS](https://github.com/redis/redis), [KAFKA](https://github.com/apache/kafka), [RabbitMQ](https://github.com/rabbitmq/rabbitmq-server)).
+4) [LOGSTASH](https://github.com/elastic/logstash) integration through message brokers.
 5) High code readability
 
 ## Supported protocols for layer
 Very work in progress project:
 
 ### Data link 
-Protocol | Version | Switch | Source
---- | --- | --- | ---
-Ethernet frame | Stable | yes | [frame.py](src/layers/ethernet.frame.py)
+Protocol | Version | Source
+--- | --- | ---
+Ethernet frame | Stable | [frame.py](src/layers/ethernet.frame.py)
 
 ### Internet
-Protocol | Version | Switch | Source
---- | --- | --- | ---
-IPv4 | Stable | yes | [ip.py](src/layers/internet/ipv4/ip.py)
+Protocol | Version | Source
+--- | --- | ---
+IPv4 | Stable | [ip.py](src/layers/internet/ipv4/ip.py)
+IPv6 | Not released | [ip.py](src/layers/internet/ipv6/ip.py)
 
 #### IPv4 protocols
-Name | Number | Version | Stable | Data | Source | Example
---- | --- | --- | --- | --- | --- | ---
-ICMP | 1 | ipv4 | Stable | No | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py) | [icmp.json](examples/icmp.json.md)
-VRRP | 112 | ipv4 | Stable | yes | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py) | [vrrp.json](examples/vrrp.json.md)
+Name | Number | Version | Source | Example
+--- | --- | --- | --- | ---
+ICMP | 1 | ipv4 | Stable | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py) | [icmp.json](examples/icmp.json.md)
+VRRP | 112 | ipv4 | Stable | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py) | [vrrp.json](examples/vrrp.json.md)
 
 ### IPv4 transport protocols
-Name | Number | Version | Stable | Data | Source | Example
---- | --- | --- | --- | --- | --- | ---
-TCP | 6 | ipv4 | Unstable | Yes | [tcp.py](src/layers/transport/tcp.py) | [tcp.json](examples/tcp.json.md)
-UDP | 17 | ipv4 | Unstable | Yes | [udp.py](src/layers/transport/udp.py) | [udp.json](examples/udp.json.md)
+Name | Number | Version | Source | Example
+--- | --- | --- | --- | ---
+TCP | 6 | Unstable | [tcp.py](src/layers/transport/tcp.py) | [tcp.json](examples/tcp.json.md)
+UDP | 17 | Unstable | [udp.py](src/layers/transport/udp.py) | [udp.json](examples/udp.json.md)
 
 ## Usage
 Prints packet to cli and sending them to REDIS:
