@@ -26,8 +26,8 @@ IPv6 | Not released | [ip.py](src/layers/internet/ipv6/ip.py)
 #### IPv4 protocols
 Name | Number | Version | Source | Example
 --- | --- | --- | --- | ---
-ICMP | 1 | ipv4 | Stable | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py) | [icmp.json](examples/icmp.json.md)
-VRRP | 112 | ipv4 | Stable | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py) | [vrrp.json](examples/vrrp.json.md)
+ICMP | 1 |  Stable | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py) | [icmp.json](examples/icmp.json.md)
+VRRP | 112 | Stable | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py) | [vrrp.json](examples/vrrp.json.md)
 
 ### IPv4 transport protocols
 Name | Number | Version | Source | Example
