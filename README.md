@@ -64,11 +64,65 @@ for i in r.lrange("vrrp", 0, -1):
 r.rpop("vrrp", r.llen("vrrp"))
 ```
 
+### next(bistream) method
+Each object class must implement a method called next; where the only parameter is a Bitstream object.
+
+This is useful to implement a protocol-oriented switch like this:
+
+```
+src/ethernet/frame.py:
+
+[...]
+    def next(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            match self.ether_type:
+                case 'ipv4':
+                    return Ip(bitstream)
+                case _:
+                    return False
+[...]
+```
+
+In the above example, the next() method will return the Ip object only if ```ether_type``` is equal to ```"ipv4"```.
+
+This could be more useful in protocols like UDP or TCP:
+
+```
+src/transport/udp.py:
+
+[...]
+    def next(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            # unencrypted protocols
+            if self.src_port == 53 or self.dst_port == 53:
+                return Dns(bitstream)
+            if self.src_port == 5060 or self.dst_port == 5060:
+                return Sip(bitstream)
+[...]
+
+--
+
+src/transport/tcp.py:
+
+[...]
+    def next(self, bitstream):
+        if isinstance(bitstream, BitStream):
+            # unencrypted protocols
+            if self.src_port == 23 or self.dst_port == 23:
+                return Telnet(bitstream)
+            if self.src_port == 53 or self.dst_port == 53:
+                return Dns(bitstream)
+            if self.src_port == 80 or self.dst_port == 80:
+                return Http(bitstream)
+[...]
+
+```
+
 ## Output
 Output types:
 
 ### Core
-Because the length of each packet can variate, each parsed layer is returned as an object within an array.
+Because the length of each packet can variate based on his scope, each parsed layer is returned as an object within an array.
 
 VRRP example:
 ```
@@ -76,7 +130,7 @@ VRRP example:
 ```
 
 ### JSON
-In case of VRRP packet, the sniffer can get the VIPs:
+In case of VRRP packet, the sniffer can get the VIPs; but this is not an additional layer:
 ```
 [{"dst_mac": "01:00:5e:00:00:12", "header_size": 112, "src_mac": "e4:5f:01:9d:b9:e0", "ether_type": "ipv4", "footer_size": 32},
 {"version": 4, "header_size": 160, "ihl": 5, "tos": "c0", "total_length": 40, "identification": 159, "flag0": 0, "flag1": 0, "flag2": 0, "fragment_offset": 0, "ttl": 255, "protocol": 112, "header_checksum": "cfe5", "src": "10.1.0.14", "dst": "224.0.0.18"},
