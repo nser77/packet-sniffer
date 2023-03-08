@@ -52,3 +52,5 @@ class Icmp(IcmpType5, IcmpType8Type0):
                 self.setSequenceNumber( bitstream[16:32])
         if self.type == 5:
             self.setGatewayInternetAddress(bitstream[0:32])
+
+        return False
