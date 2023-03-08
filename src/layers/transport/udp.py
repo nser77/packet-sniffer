@@ -4,6 +4,8 @@
 
 from bitstring import BitStream
 
+from layers.application.dns import Dns
+
 class Udp(object):
     header_size=0
     header_options=False
