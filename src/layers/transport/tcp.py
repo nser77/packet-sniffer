@@ -123,4 +123,4 @@ class Tcp(object):
             self.header_size += self.header_options_size
 
     def next(self, bitstream):
-        pass
+        return False
