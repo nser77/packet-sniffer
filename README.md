@@ -29,11 +29,16 @@ Name | Number | Version | Source | Example
 ICMP | 1 |  Stable | [icmp.py](src/layers/internet/ipv4/protocol/icmp.py) | [icmp.json](examples/icmp.json.md)
 VRRP | 112 | Stable | [vrrp.py](src/layers/internet/ipv4/protocol/vrrp.py) | [vrrp.json](examples/vrrp.json.md)
 
-### IPv4 transport protocols
+### Transports
 Name | Number | Version | Source | Example
 --- | --- | --- | --- | ---
 TCP | 6 | Unstable | [tcp.py](src/layers/transport/tcp.py) | [tcp.json](examples/tcp.json.md)
 UDP | 17 | Unstable | [udp.py](src/layers/transport/udp.py) | [udp.json](examples/udp.json.md)
+
+### Application
+Name | Version | Source | Example
+--- | --- | --- | --- 
+DNS | Unstable | [dns.py](src/layers/application/dns.py) | [dns.json](examples/dns.json.md)
 
 ## Usage
 Prints packet to cli and sending them to REDIS:
