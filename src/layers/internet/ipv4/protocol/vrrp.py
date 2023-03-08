@@ -5,7 +5,9 @@
 from bitstring import BitStream
 
 class Vrrp(object):
-    header_size=0
+    errors = []
+    header_size = 0
+    vips = []
 
     def __init__(self, bitstream):
         self.setVersion(                         bitstream[0:4])
@@ -58,17 +60,19 @@ class Vrrp(object):
             self.header_size += 16
 
     def next(self, bitstream):
-        self.data = []
-        ips=list(bitstream.bytes)
-        for i in range(0, len(ips), 4):
+        octets = list(bitstream.bytes)
+        for i in range(0, len(octets), 4):
             ip=[]
-            ip.append(ips[i])
+            ip.append(octets[i])
             i += 1
-            ip.append(ips[i])
+            ip.append(octets[i])
             i += 1
-            ip.append(ips[i])
+            ip.append(octets[i])
             i += 1
-            ip.append(ips[i])
+            ip.append(octets[i])
+            self.vips.append(".".join(map(str, ip)))
 
-            self.data.append(".".join(map(str, ip)))
+        if not len(self.vips) == self.count_ipvx_addr:
+            self.errors.append("self.vips count is not equal to count_ipvx_addr VRRP Header")
+ 
         return None
