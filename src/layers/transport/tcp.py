@@ -109,7 +109,7 @@ class Tcp(object):
 
     def setChecksum(self, bitstream):
         if isinstance(bitstream, BitStream):
-            self.checksum=bitstream.hex
+            self.checksum=bitstream.bin
             self.header_size += 16
 
     def setUrgentPointer(self, bitstream):
