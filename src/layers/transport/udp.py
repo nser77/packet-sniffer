@@ -24,4 +24,4 @@ class Udp(object):
             self.header_size += 16
 
     def next(self, bitstream):
-        pass
+        return False
