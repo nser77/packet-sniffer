@@ -71,4 +71,4 @@ class Vrrp(object):
         if not len(self.vips) == self.count_ipvx_addr:
             self.errors.append("self.vips count is not equal to count_ipvx_addr VRRP Header")
  
-        return None
+        return False
