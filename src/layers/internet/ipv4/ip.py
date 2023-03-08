@@ -5,9 +5,9 @@
 from bitstring import BitStream
 
 from layers.internet.ipv4.protocol.icmp import Icmp         # 1
-from layers.internet.ipv4.protocol.vrrp import Vrrp         # 112
-
 from layers.transport.tcp import Tcp                        # 6
+from layers.transport.udp import Udp                        # 17
+from layers.internet.ipv4.protocol.vrrp import Vrrp         # 112
 
 class Ip(object):
     header_size=0
@@ -112,7 +112,11 @@ class Ip(object):
 
     def next(self, bitstream):
         match self.protocol:
+            case 1:
+                return Icmp(bitstream)
             case 6:
                 return Tcp(bitstream)
+            case 17:
+                return Udp(bitstream)
             case 112:
                 return Vrrp(bitstream)
