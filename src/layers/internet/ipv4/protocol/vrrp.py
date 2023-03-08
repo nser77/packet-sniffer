@@ -59,16 +59,13 @@ class Vrrp(object):
             self.header_size += 16
 
     def next(self, bitstream):
+        self.vips = []
         octets = list(bitstream.bytes)
         for i in range(0, len(octets), 4):
             ip=[]
-            ip.append(octets[i])
-            i += 1
-            ip.append(octets[i])
-            i += 1
-            ip.append(octets[i])
-            i += 1
-            ip.append(octets[i])
+            for x in range(i, (i + 4)):
+                ip.append(octets[x])
+                x += 1
             self.vips.append(".".join(map(str, ip)))
 
         if not len(self.vips) == self.count_ipvx_addr:
