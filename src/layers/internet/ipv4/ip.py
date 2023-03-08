@@ -120,3 +120,5 @@ class Ip(object):
                 return Udp(bitstream)
             case 112:
                 return Vrrp(bitstream)
+            case _:
+                return False
