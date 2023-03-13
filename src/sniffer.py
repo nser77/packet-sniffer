@@ -21,6 +21,7 @@ class Sniffer:
                     if interface in interfaces:
                         self.interface=interface
                         self.bind=(self.interface, 0)
+                        return
 
     def start(self, stop=0):
         counter = 0
