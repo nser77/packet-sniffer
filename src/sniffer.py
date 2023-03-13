@@ -17,10 +17,6 @@ class Sniffer:
         conn = socket(PF_PACKET, SOCK_RAW, ntohs(3))
 
         while True:
-            sleep(0.001)
-
-            counter += 1
-
             if not stop == 0 and counter == stop:
                 break
 
@@ -43,7 +39,7 @@ class Sniffer:
                 layer1 = layer0.next(bitstream)
 
                 if layer1:
-                    if not layer1.protocol == 6:
+                    if not layer1.protocol == 112:
                         continue
 
                     del bitstream[:layer1.header_size]
@@ -57,4 +53,12 @@ class Sniffer:
 
                         layer3 = layer2.next(bitstream)
 
+                        if layer3:
+                            del bitstream[:layer3.header_size]
+                            layers.append(layer3)
+
+            counter += 1
+
             yield layers
+
+            sleep(0.001)
